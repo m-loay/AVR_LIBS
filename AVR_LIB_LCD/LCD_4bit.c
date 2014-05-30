@@ -11,6 +11,9 @@
 
 void lcd_init ()
 {
+	static FILE mystdout = FDEV_SETUP_STREAM(lcd_printf, NULL, _FDEV_SETUP_WRITE);
+	// setup our stdio stream
+	stdout = &mystdout;
 	lcd_data_direction=0xFF;
 	lcd_data_port &=~ (1<<lcd_EN);
 	lcd_command (0x33);

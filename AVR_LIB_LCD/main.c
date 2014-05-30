@@ -14,9 +14,7 @@ const char *message2="      _AVR_    ";
 double num=13.5;
 int main (void)
 {
-	static FILE mystdout = FDEV_SETUP_STREAM(lcd_printf, NULL, _FDEV_SETUP_WRITE);
-	// setup our stdio stream
-	stdout = &mystdout;
+	
 
 	lcd_init();
 	lcd_gotoxy(1,1);
