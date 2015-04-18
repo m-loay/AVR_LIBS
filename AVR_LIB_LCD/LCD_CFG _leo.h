@@ -24,9 +24,9 @@
 
 #if bit4_mixed_mode_Enable==1
 //Mixed Pins
-#define RS_data_port				PORTD
-#define RS_data_direction			DDRD
-#define RS_data_pin					PD5
+#define RS_data_port				PORTC
+#define RS_data_direction			DDRC
+#define RS_data_pin					PC6
 
 #define RW_data_port				PORTD
 #define RW_data_direction			DDRD
@@ -34,23 +34,23 @@
 
 #define EN_data_port				PORTD
 #define EN_data_direction			DDRD
-#define EN_data_pin					PD1
+#define EN_data_pin					PD3
 
-#define D4_data_port				PORTB
-#define D4_data_direction			DDRB
-#define D4_data_pin					PB5
+#define D4_data_port				PORTC
+#define D4_data_direction			DDRC
+#define D4_data_pin					PC7
 
-#define D5_data_port				PORTC
-#define D5_data_direction			DDRC
-#define D5_data_pin					PC2
+#define D5_data_port				PORTF
+#define D5_data_direction			DDRF
+#define D5_data_pin					PF5
 
-#define D6_data_port				PORTC
-#define D6_data_direction			DDRC
-#define D6_data_pin					PC3
+#define D6_data_port				PORTF
+#define D6_data_direction			DDRF
+#define D6_data_pin					PF4
 
-#define D7_data_port				PORTC
-#define D7_data_direction			DDRC
-#define D7_data_pin					PC4
+#define D7_data_port				PORTF
+#define D7_data_direction			DDRF
+#define D7_data_pin					PF1
 #endif
 
 
