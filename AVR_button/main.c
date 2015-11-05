@@ -1,47 +1,45 @@
 /*
  * main.c
  *
- *  Created on: Feb 17, 2014
- *      Author: mody
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
  */
 
-
-#include <avr/io.h>
+#include "common.h"
 #include <util/delay.h>
-#include"debounce_button.h"
-
-
-int main(void)
+int main (void)
 {
+	u8 flag=0;
+	/*Init the All DIOS*/
+	DIO_init();
 
-	unsigned char flag;
-	flag=0;
-	DDRC =0xFF; //Makes first pin of PORTC as Output
-	// OR DDRC = 0x01;
-	PORTC=0x00;
-	DDRD &= ~((1<<1)|(1<<2));//Makes firs pin of PORTD as Input
-	// OR DDRD = 0x00; //Makes all pins of PORTD input
-	PORTD|=(1<<1);
+	/*Configuration of pin0*/
+	DIO_set_pin_direction(PIN18,INPUT);
+	DIO_set_pin_input_mode(PIN18,HIGH_IMPEDENCE);
 
+	/*Configuration of pin1*/
+	DIO_set_pin_direction(PIN8,OUTPUT);
+	DIO_set_pin(PIN8,LOW);
 
-	while(1) //infinite loop
+	while(1)
 	{
 
-		if(button_is_pressed_set(PIND,2)) //If switch is pressed
+		if(button_is_pressed_set(PIN18)==HIGH)
 		{
-			if (flag==0)
+			if(flag==0)
 			{
-				PORTC ^=(1<<PC0); //Turns OFF LED
+				DIO_toggle_pin(PIN8);
 				flag=1;
 			}
-
+			else flag=0;
+			//DIO_set_pin(PIN1,DIO_get_pin(PIN0));
 		}
-		else
-		{
-			flag=0;
-		}
-		//else PORTC &=~(1<<PC0); //Turns ON LED
 
 	}
+
+	return(0);
+
 }
+
+
 

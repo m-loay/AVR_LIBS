@@ -4,7 +4,7 @@
  *  Created on: Feb 18, 2014
  *      Author: mody
  */
-
+#include "common.h"
 #include"debounce_button.h"
 
 void TO_delay (void)
@@ -13,13 +13,14 @@ void TO_delay (void)
 }
 
 #if SET_BUTTON==1
-unsigned char button_is_pressed_set(unsigned char button_pin  , unsigned char button_bit)
+
+u8 button_is_pressed_set(u8 U8PinNum)
 {
 
-	if ((button_pin & (1<<button_bit))>0)
+	if (DIO_get_pin(U8PinNum)==HIGH)
 	{
 		TO_delay();
-		if ((button_pin & (1<<button_bit))>0) return 1;
+		if (DIO_get_pin(U8PinNum)==HIGH) return 1;
 	}
 
 	return 0;
@@ -29,13 +30,13 @@ unsigned char button_is_pressed_set(unsigned char button_pin  , unsigned char bu
 
 
 #if CLR_BUTTON==1
-unsigned char button_is_pressed_clear(unsigned char button_pin , unsigned char button_bit)
+u8 button_is_pressed_clear(u8 U8PinNum)
 {
 	/* the button is pressed when BUTTON_BIT is clear */
-	if ((button_pin & (1<<button_bit))==0)
+	if (DIO_get_pin(U8PinNum)==LOW)
 	{
 		TO_delay();
-		if ((button_pin & (1<<button_bit))==0) return 1;
+		if (DIO_get_pin(U8PinNum)==LOW) return 1;
 	}
 
 	return 0;
