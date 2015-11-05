@@ -1,34 +1,27 @@
 /*
  * main.c
  *
- *  Created on: Dec 25, 2013
- *      Author: mody
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
  */
 
-#include<avr/io.h>
-#include<util/delay.h>
-#include"DIO.h"
-
-void atmega_Init(void);
-
-int main(void)
+#include "common.h"
+#include <util/delay.h>
+int main (void)
 {
-	atmega_Init();
-	while (1)
+	DIO_init();
+	DIO_set_pin_direction(PORT0_DIR,OUTPUT);
+	DIO_set_pin_direction(PORT1_DIR,OUTPUT);
+
+	while(1)
 	{
-		if (READ(B,0)==0)
-		{
-			SET(A,0);
-		}
-		else
-			CLR(A,0);
+		DIO_set_pin(PIN0,HIGH);
+		DIO_toggle_port(PORT1);
+		_delay_ms(500);
+		DIO_set_pin(PIN0,LOW);
+		_delay_ms(500);
 	}
-	return (0);
+
+	return(0);
 }
 
-void atmega_Init(void)
-{
-	IN(B,0);
-	SET(B,0);
-	OUT(A,0);
-}
