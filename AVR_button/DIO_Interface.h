@@ -64,6 +64,8 @@
 #define		HIGH				1
 #define 	PORT_HIGH			0xFF
 #define 	PORT_LOW			0x00
+#define 	PORT_OUTPUT			0xFF
+#define 	PORT_INPUT			0x00
 
 /**  AVR Status  **/
 #define		INPUT				0

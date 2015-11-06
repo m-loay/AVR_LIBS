@@ -15,7 +15,7 @@
 #include<stdlib.h>
 #include <stdbool.h>
 #include "LCD_CFG.h"
-
+#include "common.h"
 //define LCD Commands
 /*The Commands of LCD*/
 #define CLR_DISPLAY					0x01
@@ -39,17 +39,39 @@
 
 
 //prtotypes of functions
-void lcd_init ();
+
+/**  Initialization of LCD
+ * Select 4bit mode ( continous port or mixed pins) from LCD_CFG.h file
+ * **/
+void LCD_init (void);
 
 #if bit4_mixed_mode_Enable==1
-void lcd_mixed_pins (unsigned char nibbles);
+/**
+ * This function is used to serialize the data on mixed pins
+ * **/
+void lcd_mixed_pins (u8 nibbles);
 #endif
 
-void lcd_command (unsigned char cmnd);
-void lcd_data  (unsigned char data);
-void lcd_gotoxy (unsigned x, unsigned y);
-void lcd_string_print (unsigned char *str);
-int lcd_printf(char var, FILE *stream);
+
+/*
+ * This finction is used to send command in lcd
+ * select the proper command you want form LCD_4bit.h file
+ * */
+void LCD_command (u8 cmnd);
+
+/*
+ * This finction is used to send data to lcd */
+void LCD_data  (u8 _data);
+
+/*
+ * This function is used to comtrol the position of writing in lcd
+ * since the lcd 16 bit x axis and 2 bits in y axis */
+void LCD_gotoxy (u16 x, u16 y);
+
+/*This function is used to write strings to lcd*/
+void LCD_string_print (u8 *str);
+
+/*To generate delay*/
 void To_delay (void);
 
 #endif /* LCD_4BIT_H_ */

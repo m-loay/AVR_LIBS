@@ -11,12 +11,23 @@
 #define CLEAR_NIBBLE_H(Reg) 		Reg&=(0x0f)
 #define SET_NIBBLE_L(Reg) 			Reg|=(0x0f)
 #define CLEAR_NIBBLE_L(Reg) 		Reg&=(0xf0)
+#define SHIFT_NIBBLE_L(Reg)			(Reg<<4)
+#define SHIFT_NIBBLE_R(Reg)			(Reg>>4)
+
 #define ASSIGN_NIBBLE_H(Reg,Value) 	do{\
 									  Reg&=(0x0f);\
 									  Reg|=(Value<<4);\
 									  }while(0)
 #define ASSIGN_NIBBLE_L(Reg,Value) 	do{\
 									  Reg&=(0xf0);\
+									  Reg|=(Value&0xF0);\
+									  }while(0)
+#define ASSIGN_NIBBLE_DH(Reg,Value) 	do{\
+									  Reg&=(0x0f);\
+									  Reg|=(Value<<4);\
+									  }while(0)
+#define ASSIGN_NIBBLE_DL(Reg,Value) 	do{\
+									  Reg&=(0x0f);\
 									  Reg|=(Value);\
 									  }while(0)
 
@@ -30,6 +41,9 @@
 #define GET_BIT(Reg,Bit) 			(Reg>>Bit)&(1)
 #define GET_NIBBLE_L(Reg) 			Reg&(0x0f)
 #define GET_NIBBLE_H(Reg) 			( (Reg&0xf0) >> 4)
+
+#define GET_NIBBLE_HH(Reg) 			Reg&(0xf0)
+#define SHIFT_NIBBLE_L(Reg)			(Reg<<4)
 
 /*Initial Conditions*/
 #define bit0 1

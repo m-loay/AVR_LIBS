@@ -8,49 +8,30 @@
 #ifndef CFG_LCD_H_
 #define CFG_LCD_H_
 
+#include "common.h"
 #define bit4_cont_mode_Enable 	0
 #define bit4_mixed_mode_Enable  1
 
 
 #if bit4_cont_mode_Enable==1
 //Defs of the ports
-#define lcd_data_port				PORTB
-#define lcd_data_direction			DDRB
-#define lcd_data_pin				PINB
-#define lcd_RS						PB0
-#define lcd_RW						PB1
-#define lcd_EN						PB2
+#define LCD_DATA_PORT				PORT0_OUTPUT_VALUE
+#define LCD_DATA_DIRECTION			PORT0_DIR
+#define RS_DATA_PIN					PIN0
+#define EN_DATA_PIN					PIN1
 #endif
 
-#if bit4_mixed_mode_Enable==1
+
 //Mixed Pins
-#define RS_data_port				PORTD
-#define RS_data_direction			DDRD
-#define RS_data_pin					PD5
+#if bit4_mixed_mode_Enable==1
 
-#define RW_data_port				PORTD
-#define RW_data_direction			DDRD
-#define RW_data_pin					PD4
+#define RS_DATA_PIN					PIN14
+#define EN_DATA_PIN					PIN15
+#define D4_DATA_PIN					PIN4
+#define D5_DATA_PIN					PIN5
+#define D6_DATA_PIN					PIN6
+#define D7_DATA_PIN					PIN7
 
-#define EN_data_port				PORTD
-#define EN_data_direction			DDRD
-#define EN_data_pin					PD1
-
-#define D4_data_port				PORTB
-#define D4_data_direction			DDRB
-#define D4_data_pin					PB5
-
-#define D5_data_port				PORTC
-#define D5_data_direction			DDRC
-#define D5_data_pin					PC2
-
-#define D6_data_port				PORTC
-#define D6_data_direction			DDRC
-#define D6_data_pin					PC3
-
-#define D7_data_port				PORTC
-#define D7_data_direction			DDRC
-#define D7_data_pin					PC4
 #endif
 
 
