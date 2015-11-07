@@ -8,86 +8,183 @@
 //the command function
 
 #include "LCD_4bit.h"
+#include "LCD_private.h"
 
-
-void lcd_command (unsigned char cmnd)
+/**  Initialization of LCD
+ * Select 4bit mode ( continous port or mixed pins) from LCD_CFG.h file
+ * **/
+void LCD_init (void)
 {
-	lcd_data_port = (lcd_data_port & 0x0F)|(cmnd& 0xF0); //send cmnd to data port
-	lcd_data_port &=~(1<<lcd_RS);//RS=0 for command
-	lcd_data_port &=~(1<<lcd_RW);//RW=0 for data wite
-	lcd_data_port |=(1<<lcd_EN);
-	//delay_us(1);
-	_delay_ms(5);
-	lcd_data_port &=~(1<<lcd_EN);
-	//delay_us(100);
-	_delay_ms(5);
-	lcd_data_port = (lcd_data_port & 0x0F) |(cmnd<<4);
-	lcd_data_port |=(1<<lcd_EN);
-	//delay_us(1);
-	_delay_ms(5);
-	lcd_data_port &=~(1<<lcd_EN);
-	//delay_us(100);
-	_delay_ms(5);
-	
-}
+	/**  setup our stdio stream **/
+	static FILE mystdout = FDEV_SETUP_STREAM(lcd_printf, NULL, _FDEV_SETUP_WRITE);
+	stdout = &mystdout;
 
-//the data function
+	/**** 4bit mode one port ****/
+#if bit4_cont_mode_Enable==1
 
-void lcd_data  (unsigned char data)
-{
-	lcd_data_port= (lcd_data_port & 0x0F) |(data & 0xF0);
-	lcd_data_port |= (1<<lcd_RS);
-	lcd_data_port &=~(1<<lcd_RW);
-	lcd_data_port |=(1<<lcd_EN);
-	//delay_us(1);
-	_delay_ms(5);
-	lcd_data_port &=~(1<<lcd_EN);
-	_delay_ms(5);
-	lcd_data_port = (lcd_data_port & 0x0F)|(data <<4);
-	lcd_data_port |=(1<<lcd_EN);
-	//delay_us(1);
-	_delay_ms(5);
-	lcd_data_port &=~(1<<lcd_EN);
-	//delay_us(100);
-	_delay_ms(5);
-	
+	DIO_set_port_direction(LCD_DATA_DIRECTION,PORT_OUTPUT);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+
+#endif
+
+	/** 4bit mode mixed mode **/
+#if bit4_mixed_mode_Enable==1
+
+	DIO_set_pin_direction(RS_DATA_PIN,OUTPUT);
+	DIO_set_pin_direction(EN_DATA_PIN,OUTPUT);
+	DIO_set_pin_direction(D4_DATA_PIN,OUTPUT);
+	DIO_set_pin_direction(D5_DATA_PIN,OUTPUT);
+	DIO_set_pin_direction(D6_DATA_PIN,OUTPUT);
+	DIO_set_pin_direction(D7_DATA_PIN,OUTPUT);
+
+#endif
+
+	LCD_command (0x33);
+	LCD_command (0x32);
+	LCD_command (LINES_D4_D7_4BIT);
+	LCD_command (DISPLAY_ON_CURSOR_BLINK);
+	LCD_command (CLR_DISPLAY);
+	TO_DELAY(DELAY_TIME_LCD);
+	LCD_command (INC_CURSOR);
 }
 
 
-//initialization of lcd
-void lcd_init ()
+/** 4bit mode mixed mode **/
+#if bit4_mixed_mode_Enable==1
+/**
+ * This function is used to serialize the data on mixed pins
+ * **/
+void lcd_mixed_pins (u8 nibbles)
 {
-	lcd_data_direction=0xFF;
-	lcd_data_port &=~ (1<<lcd_EN);
-	lcd_command (0x33);
-	lcd_command (0x32);
-	lcd_command (0x28);
-	lcd_command (0x0E);
-	lcd_command (0x01);
-	//delay_us(2000);
-	_delay_ms(2);
-	lcd_command (0x06);
-	
+	if (nibbles & (1<<4)) DIO_set_pin(D4_DATA_PIN,HIGH) ; else DIO_set_pin(D4_DATA_PIN,LOW);
+	if (nibbles & (1<<5)) DIO_set_pin(D5_DATA_PIN,HIGH) ; else DIO_set_pin(D5_DATA_PIN,LOW);
+	if (nibbles & (1<<6)) DIO_set_pin(D6_DATA_PIN,HIGH) ; else DIO_set_pin(D6_DATA_PIN,LOW);
+	if (nibbles & (1<<7)) DIO_set_pin(D7_DATA_PIN,HIGH) ; else DIO_set_pin(D7_DATA_PIN,LOW);
+}
+#endif
+
+/*
+ * This finction is used to send command in lcd
+ * select the proper command you want form LCD_4bit.h file
+ * */
+void LCD_command (u8 cmnd)
+{
+	/**** 4bit mode one port ****/
+#if bit4_cont_mode_Enable==1
+
+	ASSIGN_NIBBLE_DL (LCD_DATA_PORT,cmnd);
+	DIO_set_pin(RS_DATA_PIN,LOW);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+	ASSIGN_NIBBLE_DH(LCD_DATA_PORT,cmnd);
+	DIO_set_pin(RS_DATA_PIN,LOW);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+#endif
+
+	/** 4bit mode mixed mode **/
+#if bit4_mixed_mode_Enable==1
+
+	lcd_mixed_pins(cmnd & 0xF0);
+	DIO_set_pin(RS_DATA_PIN,LOW);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+	lcd_mixed_pins(SHIFT_NIBBLE_L(cmnd));
+	DIO_set_pin(RS_DATA_PIN,LOW);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+#endif
+
 }
 
-//control the position
-void lcd_gotoxy (unsigned x, unsigned y)
+
+/*
+ * This finction is used to send data to lcd */
+void LCD_data  (u8 _data)
 {
-unsigned char first_char_adr[]={0x80,0xC0,0x94,0xD4};
-lcd_command(first_char_adr[y-1]+x-1);
-//delay_us(100);
-//_delay_ms(10);
+
+	/**** 4bit mode one port ****/
+#if bit4_cont_mode_Enable==1
+
+	ASSIGN_NIBBLE_DL (LCD_DATA_PORT,_data);
+	DIO_set_pin(RS_DATA_PIN,HIGH);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+	ASSIGN_NIBBLE_DH(LCD_DATA_PORT,_data);
+	DIO_set_pin(RS_DATA_PIN,HIGH);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+#endif
+
+	/** 4bit mode mixed mode **/
+#if bit4_mixed_mode_Enable==1
+	lcd_mixed_pins( _data & 0xF0);
+	DIO_set_pin(RS_DATA_PIN,HIGH);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+	lcd_mixed_pins(SHIFT_NIBBLE_L(_data));
+	DIO_set_pin(RS_DATA_PIN,HIGH);
+	DIO_set_pin(EN_DATA_PIN,HIGH);
+	TO_DELAY(DELAY_TIME_LCD);
+	DIO_set_pin(EN_DATA_PIN,LOW);
+	TO_DELAY(DELAY_TIME_LCD);
+
+#endif
+
+
 }
 
-//print a string
-void lcd_string_print (unsigned char *str)
+/*
+ * This function is used to comtrol the position of writing in lcd
+ * since the lcd 16 bit x axis and 2 bits in y axis */
+void LCD_gotoxy (u16 x, u16 y)
+{
+	unsigned char first_char_adr[]={0x80,0xC0,0x94,0xD4};
+	LCD_command(first_char_adr[y-1]+x-1);
+	TO_DELAY(DELAY_TIME_LCD);
+}
+
+
+/*This function is used to write strings to lcd*/
+void LCD_string_print (u8 *str)
 {
 	unsigned char i=0;
 	while (str[i] !=0)
 	{
-		lcd_data(str[i]);
+		LCD_data(str[i]);
 		i++;
 	}
 }
 
+
+
+// this function is called by printf as a stream handler
+int lcd_printf(char var, FILE *stream)
+{
+	// translate \n to \r for br@y++ terminal
+	if (var == '\n') LCD_data('\r');
+	LCD_data(var);
+	return 0;
+}
 

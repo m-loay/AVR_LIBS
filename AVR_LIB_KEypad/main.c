@@ -1,34 +1,51 @@
 /*
- * LCD_4bit_mode.c
+ * main.c
  *
- * Created: 5/3/2013 8:32:01 PM
- *  Author: mohamed
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
  */
 
-#include <avr/io.h>
-#include <util/delay.h>
-#include "LCD_4bit.h"
-#include"keypad.h"
+#include "common.h"
 
-int main(void)
+const char *message1="     LCD_LIB    ";
+const char *message2="      _AVR_    ";
+
+int main (void)
 {
-
-	unsigned char key;
+	u8 key,count_c,count_r;
+	count_c=0;
+	count_r=0;
+	DIO_init();
 	keypad_init();
-	lcd_init ();
-	lcd_gotoxy(1,1);
-	lcd_string_print("keypad");
-	lcd_gotoxy(1,2);
+	LCD_init();
+	LCD_gotoxy(1,1);
+	printf("%s",message1);
+	LCD_gotoxy(1,2);
+	printf("%s",message2);
+	TO_DELAY(2000);
+	LCD_command(CLR_DISPLAY);
+	LCD_gotoxy(1,1);
 
 	while(1)
 	{
-	/* the function to get the pressed key*/
-	key=get_key();
-	/*important to write only when a key is pressed*/
-	if (key!=0)	lcd_data(key);
+		/* the function to get the pressed key*/
+		key=KEY_scan();
+
+		/*Proceesing the output from function*/
+		if(key=='n')
+		{
+			LCD_command(CLR_DISPLAY);
+			LCD_gotoxy(1,1);
+			key='\0';
+		}
+		if (key!=0)	printf("%c",key) ;
+
+
 	}
 
-	return 0;
+	return(0);
+
 }
+
 
 
