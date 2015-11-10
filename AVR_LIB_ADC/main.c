@@ -1,40 +1,52 @@
 /*
- * ADC_interrupt.c
+ * main.c
  *
- * Created: 5/16/2013 8:13:01 PM
- *  Author: mohamed
- */ 
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
+ */
 
-
-#include <avr/io.h>
-#include <util/delay.h>
+#include "common.h"
 #include <avr/interrupt.h>
-#include <stdint.h>       // needed for uint8_t
-#include <stdlib.h>
-#include "ADC.h"
-#include "LCD_4bit.h"
-volatile int adc_data;
+volatile u16 adc_read;
 
-int main(void)
+int main (void)
 {
-	sei ();
-	lcd_init();
-	lcd_gotoxy(1,1);
+
+	DIO_init();
+	DIO_set_port_direction(PORT3,INPUT);
+	DIO_set_pin_direction(PIN21,OUTPUT);
+	DIO_set_pin(PIN21,LOW);
+
+	LCD_init();
+	LCD_gotoxy(1,1);
 	printf("AVR ADC Tutorial");
-	intit_adc();
-	lcd_gotoxy(1,2);
+	LCD_gotoxy(1,2);
+
+	ADC_init();
+	ADC_Configure_Reference(VREFERENCE_VALUE);
+	ADC_Configure_PRESCALAR(PRESCALAR_VALUE);
+	ADC_Enable();
+
+	ADC_Enable_ISR();
+	sei();
+	ADC_start();
+
 
 	while(1)
 	{
-		lcd_gotoxy(1,2);
-		printf("%d",adc_data);
+
+
+		LCD_gotoxy(1,2);
+		printf("%d",adc_read);
 		printf ("                  " );
-		_delay_ms(200);
+		_delay_ms(5000);
 	}
-	return 0;
+
+	return(0);
+
 }
 
 ISR (ADC_vect)
 {
-	adc_data=read_adc8(0);
+	adc_read=ADC_read_8bits(ADC_CHANNEL);
 }

@@ -8,32 +8,31 @@
 #ifndef CFG_LCD_H_
 #define CFG_LCD_H_
 
-//Defs of the ports
-#define lcd_data_port				PORTC
-#define lcd_data_direction			DDRC
-#define lcd_data_pin				PINC
-#define lcd_RS						0
-#define lcd_RW						1
-#define lcd_EN						2
+#include "common.h"
+#define bit4_cont_mode_Enable 	0
+#define bit4_mixed_mode_Enable  1
 
-/*The Commands of LCD*/
-#define CLR_DISPLAY					0x01
-#define RET_HOME					0x02
-#define DEC_CURSOR					0x04
-#define INC_CURSOR					0x06
-#define SHIFT_DISPLAY_RIGHT			0x05
-#define SHIFT_DISPLAY_LEFT			0x07
-#define DISPLAY_OFF_CURSOR_OFF		0x08
-#define DISPLAY_OFF_CURSOR_ON		0x0A
-#define DISPLAY_ON_CURSOR_OFF		0x0C
-#define DISPLAY_ON_CURSOR_BLINK		0x0E
-#define SHIFT_CURSOR_RIGHT			0x10
-#define SHIFT_CURSOR_LEFT			0x14
-#define SHIFT_ENTIRE_DISPLAY_RIGHT	0x18
-#define SHIFT_ENTIRE_EDISPLAY_LEFT	0x1C
-#define FORCE_CURSOR_1ST_LINE		0X80
-#define FORCE_CURSOR_2ND_LINE		0XC0
-#define LINES_D4_D7_4BIT			0X28
-#define LINES_D8_D7_8BIT			0X38
+
+#if bit4_cont_mode_Enable==1
+//Defs of the ports
+#define LCD_DATA_PORT				PORT2_OUTPUT_VALUE
+#define LCD_DATA_DIRECTION			PORT2_DIR
+#define RS_DATA_PIN					PIN14
+#define EN_DATA_PIN					PIN16
+#endif
+
+
+//Mixed Pins
+#if bit4_mixed_mode_Enable==1
+
+#define RS_DATA_PIN					PIN14
+#define EN_DATA_PIN					PIN15
+#define D4_DATA_PIN					PIN4
+#define D5_DATA_PIN					PIN5
+#define D6_DATA_PIN					PIN6
+#define D7_DATA_PIN					PIN7
+
+#endif
+
 
 #endif /* LCD_CFG_H_ */
