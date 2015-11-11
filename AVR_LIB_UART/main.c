@@ -1,27 +1,55 @@
 /*
- * uart_main.c
+ * main.c
  *
- *  Created on: Jan 3, 2014
- *      Author: mody
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
  */
 
-#include<avr/io.h>
-#include <util/delay.h>
-#include"usart.h"
+#include "common.h"
 
-int main(void)
+const char *message1="    USART    ";
+
+int main (void)
 {
-	DDRC=0xFF;
-	USART_Init();        //Call the USART initialization code
+	u8 data;
+	u8 counter=1;
+
+	DIO_init();
+	DIO_set_pin_direction(PIN16,INPUT);
+	DIO_set_pin_direction(PIN17,OUTPUT);
+
+	LCD_init();
+	LCD_gotoxy(1,1);
+	printf("%s",message1);
+	LCD_gotoxy(1,2);
+
+
+	USART_init();
 
 	while(1)
 	{
-		USART_putstring("hello");    //Pass the string to the USART_putstring function and sends it over the serial
-		PORTC^=0xFF;
-		_delay_ms(5000);        //Delay for 5 seconds so it will re-send the string every 5 seconds
+		USART_Transmit_data('A');
+		_delay_ms(500);
+
+
+		LCD_gotoxy(counter,2);
+
+		data=USART_Receiving_data();
+		printf ("%c",data );
+		counter++;
+		if (counter==15)
+		{
+			LCD_gotoxy(1,2);
+			printf("                ");
+			LCD_gotoxy(1,2);
+			counter=1;
+		}
+
 
 	}
 
-	return 0;
+	return(0);
+
 }
+
 
