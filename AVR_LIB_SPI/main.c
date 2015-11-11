@@ -1,26 +1,27 @@
 /*
- * spi_master_main.c
+ * main.c
  *
- *  Created on: Jan 3, 2014
- *      Author: mody
+ *  Created on: Nov 5, 2015
+ *      Author: Mohamed
  */
 
-#include <avr/io.h>
-#include <util/delay.h>
-#include "SPI.h"
+#include "common.h"
 
 int main (void)
 {
-	SPI_MasterInit();
+
+	DIO_init();
+
+	SPI_init();
 
 	while(1)
 	{
-
-		SPI_MasterSend_String ("REEM & MODY");
-		_delay_ms(200);
-		SPI_MasterSend(' ');
-		_delay_ms(200);
-
+		SPI_send_byte('A');
+		_delay_ms(300);
 	}
-	return (0);
+
+	return(0);
+
 }
+
+
