@@ -10,6 +10,6 @@
 #include "LCD_4bit.h"
 int lcd_printf(char var, FILE *stream);
 /*To generate delay*/
-void To_delay (void);
+
 
 #endif /* LCD_PRIVATE_H_ */

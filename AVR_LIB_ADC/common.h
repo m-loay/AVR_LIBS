@@ -9,8 +9,8 @@
 #define COMMON_H_
 
 #include "common.h"
+#include "avr_comm.h"
 #include <stdio.h>
-#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "DIO_Interface.h"

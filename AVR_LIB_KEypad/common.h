@@ -15,6 +15,7 @@
 #include <util/delay.h>
 #include "DIO_Interface.h"
 #include "DIO_Config.h"
+#include "avr_comm.h"
 #include "LCD_4bit.h"
 #include "std_typed.h"
 #include "util.h"

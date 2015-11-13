@@ -44,7 +44,7 @@ void LCD_init (void)
 	LCD_command (LINES_D4_D7_4BIT);
 	LCD_command (DISPLAY_ON_CURSOR_BLINK);
 	LCD_command (CLR_DISPLAY);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	LCD_command (INC_CURSOR);
 }
 
@@ -75,16 +75,16 @@ void LCD_command (u8 cmnd)
 	ASSIGN_NIBBLE_DL (LCD_DATA_PORT,cmnd);
 	DIO_set_pin(RS_DATA_PIN,LOW);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 	ASSIGN_NIBBLE_DH(LCD_DATA_PORT,cmnd);
 	DIO_set_pin(RS_DATA_PIN,LOW);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 #endif
 
@@ -94,16 +94,16 @@ void LCD_command (u8 cmnd)
 	lcd_mixed_pins(cmnd & 0xF0);
 	DIO_set_pin(RS_DATA_PIN,LOW);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 	lcd_mixed_pins(SHIFT_NIBBLE_L(cmnd));
 	DIO_set_pin(RS_DATA_PIN,LOW);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 #endif
 
@@ -121,16 +121,16 @@ void LCD_data  (u8 _data)
 	ASSIGN_NIBBLE_DL (LCD_DATA_PORT,_data);
 	DIO_set_pin(RS_DATA_PIN,HIGH);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 	ASSIGN_NIBBLE_DH(LCD_DATA_PORT,_data);
 	DIO_set_pin(RS_DATA_PIN,HIGH);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 #endif
 
@@ -139,16 +139,16 @@ void LCD_data  (u8 _data)
 	lcd_mixed_pins( _data & 0xF0);
 	DIO_set_pin(RS_DATA_PIN,HIGH);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 	lcd_mixed_pins(SHIFT_NIBBLE_L(_data));
 	DIO_set_pin(RS_DATA_PIN,HIGH);
 	DIO_set_pin(EN_DATA_PIN,HIGH);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 	DIO_set_pin(EN_DATA_PIN,LOW);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 
 #endif
 
@@ -162,7 +162,7 @@ void LCD_gotoxy (u16 x, u16 y)
 {
 	unsigned char first_char_adr[]={0x80,0xC0,0x94,0xD4};
 	LCD_command(first_char_adr[y-1]+x-1);
-	TO_DELAY(DELAY_TIME_LCD);
+	TO_DELAY(LCD_DELAY);
 }
 
 

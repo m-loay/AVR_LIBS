@@ -8,15 +8,15 @@
 #define NOT_BIT(Reg,Bit) 		    Reg=!(1<<Bit)
 
 /**  Nibble manipulation  **/
-#define SET_NIBBLE_H(Reg) 			Reg|=(0xf0)
-#define CLEAR_NIBBLE_H(Reg) 		Reg&=(0x0f)
-#define SET_NIBBLE_L(Reg) 			Reg|=(0x0f)
-#define CLEAR_NIBBLE_L(Reg) 		Reg&=(0xf0)
+#define SET_NIBBLE_H(Reg) 			Reg|=(0xF0)
+#define CLEAR_NIBBLE_H(Reg) 		Reg&=(0x0F)
+#define SET_NIBBLE_L(Reg) 			Reg|=(0x0F)
+#define CLEAR_NIBBLE_L(Reg) 		Reg&=(0xF0)
 #define SHIFT_NIBBLE_L(Reg)			(Reg<<4)
 #define SHIFT_NIBBLE_R(Reg)			(Reg>>4)
 
 #define ASSIGN_NIBBLE_H(Reg,Value) 	do{\
-									  Reg&=(0x0f);\
+									  Reg&=(0x0F);\
 									  Reg|=(Value<<4);\
 									  }while(0)
 #define ASSIGN_NIBBLE_L(Reg,Value) 	do{\
@@ -24,16 +24,16 @@
 									  Reg|=(Value&0xF0);\
 									  }while(0)
 #define ASSIGN_NIBBLE_DH(Reg,Value) 	do{\
-									  Reg&=(0x0f);\
+									  Reg&=(0x0F);\
 									  Reg|=(Value<<4);\
 									  }while(0)
 #define ASSIGN_NIBBLE_DL(Reg,Value) 	do{\
-									  Reg&=(0x0f);\
+									  Reg&=(0x0F);\
 									  Reg|=(Value);\
 									  }while(0)
 
 /**  Register manipulation  **/
-#define SET_REG(Reg) 				Reg|=(0xff)
+#define SET_REG(Reg) 				Reg|=(0xFF)
 #define CLEAR_REG(Reg) 				Reg&=(0x00)
 #define TOGGLE_REG(Reg)				Reg^=(0xFF)
 #define ASSIGN_REG(Reg,Value) 		Reg=Value
@@ -44,8 +44,7 @@
 #define GET_NIBBLE_H(Reg) 			( (Reg&0xF0) >> 4)
 
 #define GET_NIBBLE_HH(Reg) 			Reg&(0xF0)
-#define GET_NIBBLE_LL(Reg) 			Reg&(0x0F)
-
+#define GET_NIBBLE_LL(Reg)			Reg&(0x0F)
 #define SHIFT_NIBBLE_L(Reg)			(Reg<<4)
 
 

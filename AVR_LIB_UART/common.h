@@ -10,7 +10,7 @@
 
 #include "common.h"
 #include <stdio.h>
-#include <avr/io.h>
+#include "avr_comm.h"
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "DIO_Interface.h"

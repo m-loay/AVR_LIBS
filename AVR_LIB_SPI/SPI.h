@@ -9,6 +9,7 @@
 #define SPI_H_
 
 #include "common.h"
+#include "SPI_Pivate.h"
 #include "SPI_CFG.h"
 
 #if SPI_Master_Mode_Enable==1

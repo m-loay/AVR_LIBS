@@ -20,7 +20,7 @@ int main (void)
 	TIMER0_set_timer_value(TIMER0_VALUE);
 	TIMER0_out_compare_value(OCR0_VALUE);
 	TIMER0_Outcmpare_Enable_ISR();
-	sei();
+	//sei();
 
 	while(1)
 	{
@@ -31,10 +31,12 @@ int main (void)
 
 }
 
-ISR (TIMER0_COMP_vect)
+
+ISR (TIMER0_OVF_vect)
 {
 	DIO_toggle_pin(PIN3);
 }
+
 
 /**
 void TIMER0_delay (void)

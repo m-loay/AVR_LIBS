@@ -1,12 +1,12 @@
 /*
- * main.c
+  * main.c
  *
  *  Created on: Nov 5, 2015
  *      Author: Mohamed
  */
 
 #include "common.h"
-#include <util/delay.h>
+
 int main (void)
 {
 	u8 flag=0;

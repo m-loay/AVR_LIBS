@@ -5,9 +5,7 @@
  *      Author: Mohamed
  */
 
-#include "SPI.h"
-#include "SPI_CFG.h"
-#include "SPI_Pivate.h"
+#include"SPI.h"
 
 /*SPI Init*/
 void SPI_init (void)
@@ -63,7 +61,7 @@ void SPI_Disable_ISR(void)
 }
 
 /*Select mode of operation*/
-static void SPI_Configure_Mode (u8 Mode)
+ void SPI_Configure_Mode (u8 Mode)
 {
 	if (Mode==SPI_Master_Mode_Enable)
 		SET_BIT(SPCR,MSTR);
@@ -72,7 +70,7 @@ static void SPI_Configure_Mode (u8 Mode)
 }
 
 /*Select the presca;a 2,4,8,16,32,64,128*/
-static void SPI_Configure_Prescalar (u8 Prescalar)
+void SPI_Configure_Prescalar (u8 Prescalar)
 {
 	switch (Prescalar)
 	{

@@ -9,10 +9,10 @@
 #ifndef LCD_4BIT_H_
 #define LCD_4BIT_H_
 
-#include <avr/io.h>
+
 #include <util/delay.h>
 #include <stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "LCD_CFG.h"
 #include "common.h"
@@ -36,7 +36,7 @@
 #define FORCE_CURSOR_2ND_LINE		0XC0
 #define LINES_D4_D7_4BIT			0X28
 #define LINES_D8_D7_8BIT			0X38
-
+#define LCD_DELAY					5
 
 //prtotypes of functions
 
@@ -71,7 +71,5 @@ void LCD_gotoxy (u16 x, u16 y);
 /*This function is used to write strings to lcd*/
 void LCD_string_print (u8 *str);
 
-/*To generate delay*/
-void To_delay (void);
 
 #endif /* LCD_4BIT_H_ */

@@ -15,6 +15,6 @@
 #include "LCD_4bit.h"
 #include "std_typed.h"
 #include "util.h"
-#include "debounce_button.h"
+#include "avr_comm.h"
 
 #endif /* COMMON_H_ */

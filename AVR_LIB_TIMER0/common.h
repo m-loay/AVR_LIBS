@@ -9,15 +9,15 @@
 #define COMMON_H_
 
 #include "common.h"
-#include <stdio.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
+#include "avr_comm.h"
 #include <util/delay.h>
-#include "DIO_Interface.h"
 #include "DIO_Config.h"
+#include "DIO_Interface.h"
 #include "std_typed.h"
 #include "util.h"
-#include "Timer0.h"
+#include <avr/interrupt.h>
+#include "TIMER0.h"
+
 
 
 #endif /* COMMON_H_ */

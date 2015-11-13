@@ -6,7 +6,6 @@
  */
 
 #include "common.h"
-#include <avr/interrupt.h>
 volatile u16 adc_read;
 
 int main (void)
@@ -26,27 +25,20 @@ int main (void)
 	ADC_Configure_Reference(VREFERENCE_VALUE);
 	ADC_Configure_PRESCALAR(PRESCALAR_VALUE);
 	ADC_Enable();
-
-	ADC_Enable_ISR();
-	sei();
 	ADC_start();
 
 
 	while(1)
 	{
 
-
 		LCD_gotoxy(1,2);
+		adc_read=ADC_read_16bits(ADC0);
 		printf("%d",adc_read);
 		printf ("                  " );
-		_delay_ms(5000);
+		_delay_ms(500);
 	}
 
 	return(0);
 
 }
 
-ISR (ADC_vect)
-{
-	adc_read=ADC_read_8bits(ADC_CHANNEL);
-}
