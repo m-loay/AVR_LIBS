@@ -204,8 +204,11 @@ void TIMER0_set_timer_value(u8 value)
 }
 
 /*To load OCR0 value*/
-void TIMER0_out_compare_value(u8 value)
+void TIMER0_set_out_compare_value(u8 value)
 {
+	TIMER0_clear_outcompare_flag();
+	TIMER0_clear_overflow_flag();
+	TIMER0_set_timer_value(0x00);
 	OCR0 = value;
 }
 
@@ -243,4 +246,16 @@ u8 TIMER0_get_overflow_flag(void)
 u8 TIMER0_get_outcompare_flag(void)
 {
 	return(GET_BIT(TIFR,OCF0));
+}
+
+/*Clear the status of flag overflow*/
+void TIMER0_clear_overflow_flag(void)
+{
+	SET_BIT(TIFR,TOV0);
+}
+
+/*Get the status of outcompare match status*/
+void TIMER0_clear_outcompare_flag(void)
+{
+	SET_BIT(TIFR,OCF0);
 }

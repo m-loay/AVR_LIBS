@@ -10,7 +10,7 @@
 
 #define 	AVR_DIO_MODULE						1
 #define 	AVR_EXTERNAL_INTERRUPT_MODULE		0
-#define 	AVR_TIMER0_MODULE					1
+#define 	AVR_TIMER0_MODULE					0
 #define 	AVR_TIMER1_MODULE					0
 #define 	AVR_TIMER2_MODULE					0
 #define 	AVR_SPI_MODULE						0

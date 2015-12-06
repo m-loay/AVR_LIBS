@@ -22,7 +22,7 @@
 
 
 #if U2X_MODE!=9
-#define 	UBRR_VALUE 		(((F_CLK / (USART_BAUDRATE * 16UL))) - 1)
+#define 	UBRR_VALUE 		6
 #endif
 
 #if U2X_MODE==9
@@ -62,5 +62,6 @@ void USART_Transmit_data( u8 data );
 
 /*Receiving data*/
 u8 USART_Receiving_data (void);
-
+u8 *USART_Receiving_string (void);
+s16 USART_arr_to_int (u8 *input_arr);
 #endif /* USART_H_ */

@@ -12,9 +12,6 @@ int main (void)
 {
 
 	DIO_init();
-	DIO_set_port_direction(PORT3,INPUT);
-	DIO_set_pin_direction(PIN21,OUTPUT);
-	DIO_set_pin(PIN21,LOW);
 
 	LCD_init();
 	LCD_gotoxy(1,1);
@@ -27,15 +24,13 @@ int main (void)
 	ADC_Enable();
 	ADC_start();
 
-
 	while(1)
 	{
-
 		LCD_gotoxy(1,2);
-		adc_read=ADC_read_16bits(ADC0);
+		adc_read=ADC_read_8bits(ADC0);
 		printf("%d",adc_read);
 		printf ("                  " );
-		_delay_ms(500);
+		TO_DELAY(500);
 	}
 
 	return(0);

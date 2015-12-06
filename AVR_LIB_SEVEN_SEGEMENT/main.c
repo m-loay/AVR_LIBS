@@ -6,8 +6,9 @@
  */
 
 #include "common.h"
-#include <avr/interrupt.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
+
 volatile u8 i;
 int main (void)
 {

@@ -23,7 +23,6 @@ int main (void)
 
 	while(1)
 	{
-
 		if(button_is_pressed_set(PIN18)==HIGH)
 		{
 			if(flag==0)
@@ -34,7 +33,6 @@ int main (void)
 			else flag=0;
 			//DIO_set_pin(PIN1,DIO_get_pin(PIN0));
 		}
-
 	}
 
 	return(0);

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff3306000078000000830a00003e030000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffffd882ffffffffffffffffffff3306000078000000830a00003e030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -15,7 +15,7 @@
      <ITEM name="Version">100</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="350" x="2616" flags="00000033" y="289" h="611" pid="1" iid="-1">
+   <POPUP w="350" x="2616" flags="00000032" y="289" h="611" pid="1" iid="-1">
     <PROPERTIES>
      <ITEM name="Address Column Width">83</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -23,7 +23,7 @@
      <ITEM name="Item 0">"UCSRA","0x002B",00000001,0000000D,11,1,2,F0130000,0,00000000,00000000</ITEM>
      <ITEM name="Item 1">"UCSRB","0x002A",00000001,0000000D,10,1,2,436D0000,0,00000000,00000000</ITEM>
      <ITEM name="Item 2">"UCSRC","0x0040",00000001,0000000D,32,1,2,48550000,0,00000000,00000000</ITEM>
-     <ITEM name="Item 3">"UDR","0x002C",00000001,0000000D,12,1,2,45CB0000,0,00000000,00000000</ITEM>
+     <ITEM name="Item 3">"UDR","0x002C",00000001,0000000D,12,1,4,45CB0000,0,00000000,00000000</ITEM>
      <ITEM name="Item 4">"UBRRL","0x0029",00000001,0000000D,9,1,2,68940000,0,00000000,00000000</ITEM>
      <ITEM name="Item 5">"UBRRH","0x0040",00000001,0000000D,32,1,2,A8710000,0,00000000,00000000</ITEM>
      <ITEM name="Name Column Width">83</ITEM>
@@ -215,7 +215,7 @@
      <ITEM name="nBreakpoints">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="300" x="2454" flags="0000000a" y="40" h="300" pid="2" iid="5">
+   <POPUP w="300" x="2481" flags="0000000b" y="195" h="300" pid="2" iid="5">
     <PROPERTIES>
      <ITEM name="Address Column Width">94</ITEM>
      <ITEM name="AutoResize">No</ITEM>

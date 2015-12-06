@@ -12,7 +12,7 @@
 
 #define SET_BUTTON	    1
 #define CLR_BUTTON	    1
-#define DEBOUNCE_TIME	80
+#define DEBOUNCE_TIME	500
 
 u8 button_is_pressed_set(u8 U8PinNum);
 u8 button_is_pressed_clear(u8 U8PinNum);

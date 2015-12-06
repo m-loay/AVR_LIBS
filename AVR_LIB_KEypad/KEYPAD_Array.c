@@ -7,7 +7,7 @@
 #include "common.h"
 #include "KEYPAD_Array_CFG.h"
 
-
+u8 row,col;
 /**Set You keypad Configuration on KEYPAD_Array_CFG.h
  * Specify with pins the Rows and columns of your keypad KEYPAD_Array_CFG.h
  * SPecify the keypad map in constant array dimension of 2*2 [ROW][COL]
@@ -85,21 +85,25 @@ void keypad_init(void)
 volatile u8 KEY_scan (void)
 {
 
-	u8 row,col;
+
 	keypad_init();
 
 	for(row=0;row<ROW;row++)
 	{
+		TO_DELAY(DELAY_TIME_KEY);
 		DIO_set_pin(row_array[row],LOW);
+
 		for(col=0;col<COL;col++)
 		{
-			TO_DELAY(DELAY_TIME_KEY);
+
 			if(button_is_pressed_clear(col_array[col]))
 			{
 				return conv_table [row][col];
 			}
-			TO_DELAY(DELAY_TIME_KEY);
+
 		}
+
+		TO_DELAY(DELAY_TIME_KEY);
 		DIO_set_pin(row_array[row],HIGH);
 	}
 

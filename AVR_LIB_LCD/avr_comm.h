@@ -13,20 +13,21 @@
 
 /****************PORTS & PINS*******************/
 #if AVR_DIO_MODULE==1
-#define PORT0_DIR				(*(volatile u8*) 0x37)//DDRB
-#define PORT1_DIR				(*(volatile u8*) 0x34)//DDRC
-#define PORT2_DIR				(*(volatile u8*) 0x31)//DDRD
-#define PORT3_DIR				(*(volatile u8*) 0x3A)//DDRA
 
-#define PORT0_OUTPUT_VALUE		(*(volatile u8*) 0x38)//PORTB
-#define PORT1_OUTPUT_VALUE		(*(volatile u8*) 0x35)//PORTC
-#define PORT2_OUTPUT_VALUE		(*(volatile u8*) 0x32)//PORTD
-#define PORT3_OUTPUT_VALUE		(*(volatile u8*) 0x3B)//PORTA
+#define PORT0_DIR				(*(volatile u8*) 0x37)  //DDRB
+#define PORT1_DIR				(*(volatile u8*) 0x34)  //DDRC
+#define PORT2_DIR				(*(volatile u8*) 0x31)  //DDRD
+#define PORT3_DIR				(*(volatile u8*) 0x3A)  //DDRA
 
-#define PORT0_INPUT_VALUE		(*(volatile u8*) 0x36)//PINB
-#define PORT1_INPUT_VALUE		(*(volatile u8*) 0x33)//PINC
-#define PORT2_INPUT_VALUE		(*(volatile u8*) 0x30)//PIND
-#define PORT3_INPUT_VALUE		(*(volatile u8*) 0x39)//PINA
+#define PORT0_OUTPUT_VALUE		(*(volatile u8*) 0x38)  //PORTB
+#define PORT1_OUTPUT_VALUE		(*(volatile u8*) 0x35)  //PORTC
+#define PORT2_OUTPUT_VALUE		(*(volatile u8*) 0x32)  //PORTD
+#define PORT3_OUTPUT_VALUE		(*(volatile u8*) 0x3B)  //PORTA
+
+#define PORT0_INPUT_VALUE		(*(volatile u8*) 0x36)  //PINB
+#define PORT1_INPUT_VALUE		(*(volatile u8*) 0x33)  //PINC
+#define PORT2_INPUT_VALUE		(*(volatile u8*) 0x30)  //PIND
+#define PORT3_INPUT_VALUE		(*(volatile u8*) 0x39)  //PINA
 
 /*PORTB pins B0 to B7*/
 #define		PIN0				0
@@ -87,7 +88,10 @@
 #define		LOW					0
 #define		HIGH				1
 #endif
+
+
 /****************External Interrupts*******************/
+
 #if AVR_EXTERNAL_INTERRUPT_MODULE==1
 #define		 MCUCR		(*(volatile u8 *)0x55)			//MCU Control Register
 #define		 MCUCSR		(*(volatile u8 *)0x54)			//MCU Control and Status Register
@@ -137,7 +141,11 @@
 #define SIG_INTERRUPT2			_VECTOR(3)
 
 #endif
+
+
 /****************TIMER*******************/
+
+#if (AVR_TIMER0_MODULE==1 || AVR_TIMER1_MODULE==1 || AVR_TIMER2_MODULE==1)
 #define		TIMSK					(*(volatile u8 *)0x59)
 #define		TIFR					(*(volatile u8 *)0x58)
 /* TIMSK */
@@ -159,6 +167,8 @@
 #define TOV1    2
 #define OCF0    1
 #define TOV0    0
+
+#endif
 
 
 /****************TIMER0*******************/

@@ -14,5 +14,6 @@
 #include "DIO_Config.h"
 #include "std_typed.h"
 #include "util.h"
+#include <util/delay.h>
 
 #endif /* COMMON_H_ */

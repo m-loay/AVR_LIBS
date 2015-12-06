@@ -19,5 +19,6 @@
 #include "util.h"
 #include "ADC.h"
 #include "LCD_4bit.h"
+#include "Enable_Global_ISR.h"
 
 #endif /* COMMON_H_ */

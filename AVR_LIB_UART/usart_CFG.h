@@ -9,7 +9,7 @@
 #define USART_CFG_H_
 
 #define USART_BAUDRATE 			9600
-#define F_CLK 					8000000UL
+#define F_CLK 					1000000UL
 #define NUMBER_OF_BITS			8
 #define USART_MODE				ASYNCHRONOUS
 #define STOP_BITS				STOP_1

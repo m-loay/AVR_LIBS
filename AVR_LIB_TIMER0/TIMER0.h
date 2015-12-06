@@ -48,7 +48,7 @@ void TIMER0_Configure_CLK(u8 CLK_Mode );
 void TIMER0_set_timer_value(u8 value);
 
 /*To load OCR0 value*/
-void TIMER0_out_compare_value(u8 value);
+void TIMER0_set_out_compare_value(u8 value);
 
 /*Enable Interrupt for timer overflow*/
 void TIMER0_Overflow_Enable_ISR(void);
@@ -68,5 +68,10 @@ u8 TIMER0_get_overflow_flag(void);
 /*Get the status of outcompare match status*/
 u8 TIMER0_get_outcompare_flag(void);
 
+/*Clear the status of flag overflow*/
+void TIMER0_clear_overflow_flag(void);
+
+/*Get the status of outcompare match status*/
+void TIMER0_clear_outcompare_flag(void);
 
 #endif /* TIMER0_H_ */

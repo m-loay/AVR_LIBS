@@ -35,7 +35,7 @@ u8 button_is_pressed_clear(u8 U8PinNum)
 	/* the button is pressed when BUTTON_BIT is clear */
 	if (DIO_get_pin(U8PinNum)==LOW)
 	{
-		TO_delay();
+		TO_DELAY(DEBOUNCE_TIME);
 		if (DIO_get_pin(U8PinNum)==LOW) return 1;
 	}
 

@@ -16,17 +16,17 @@
 #define COL  			3
 
 
-#define ROW0			PIN31
-#define ROW1			PIN30
-#define ROW2			PIN29
+#define COL0			PIN31
+#define COL1			PIN30
+#define COL2			PIN29
 //#define ROW3			PIN31
 
 
-#define COL0			PIN28
-#define COL1			PIN27
-#define COL2			PIN26
+#define ROW0			PIN28
+#define ROW1			PIN27
+#define ROW2			PIN26
 //#define COL3			PIN7
 
-#define DELAY_TIME_KEY	10
+#define DELAY_TIME_KEY	100
 
 #endif /* KEYPAD_ARRAY_CFG_H_ */

@@ -6,16 +6,15 @@
  */
 
 #include "common.h"
-#include <util/delay.h>
 
 int main (void)
 {
 	DIO_init();
-	DIO_set_pin_direction(PIN0,OUTPUT);
+	DIO_set_pin_direction(PIN24,OUTPUT);
 
 	while(1)
 	{
-		DIO_toggle_pin(PIN0);
+		DIO_toggle_pin(PIN24);
 		TO_DELAY(500);
 	}
 

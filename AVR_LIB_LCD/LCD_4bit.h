@@ -12,8 +12,6 @@
 
 #include <util/delay.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "LCD_CFG.h"
 #include "common.h"
 //define LCD Commands

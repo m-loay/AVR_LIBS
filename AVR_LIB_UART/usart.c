@@ -7,7 +7,7 @@
 
 #include "common.h"
 #include "USART_Private.h"
-
+u8 data;
 /*Init the module of the USART*/
 void USART_init (void)
 {
@@ -189,11 +189,33 @@ void USART_Transmit_data( u8 data )
 /*Receiving data*/
 u8 USART_Receiving_data (void)
 {
-	u8 data;
+	//u8 data;
 	/* Wait for data to be received */
 	while((GET_BIT(UCSRA ,RXC)) == 0);
 
 	/* Get and return received data from buffer */
 	data=UDR;
 	return data;
+}
+
+u8 *USART_Receiving_string (void)
+{
+	u8 counter=0;
+	u8 *arr = calloc(3, sizeof(u8));
+
+	do
+	{
+		data=USART_Receiving_data();
+		arr[counter++]=data;
+	} while (data!=13 && counter!=4);
+	arr[counter]='\n';
+	return(arr);
+}
+
+s16 USART_arr_to_int (u8 *input_arr)
+{
+	s16 number;
+	number=atoi((const char *)input_arr);
+	free(input_arr);
+	return(number);
 }
